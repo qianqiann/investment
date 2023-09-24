@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  max-width: 100% !important;
+}
+
+body {
+  background-color: #e5e5e5;
+  color: #3C4858;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 300;
+    line-height: 1.618;
+    font-size: 14px;
+}
+
+.page-intro {
+  min-height: 77px;
+  color: #fff;
+  padding: 120px 46px 0 46px;
+  /* background-image: url(/img/page-bg.jpg);
+  background-position: center top;
+  background-size: 100% 100%;
+  background-repeat: no-repeat; */
+}
+
+img {
+  max-width: 100%;
+}
+
+.page-title {
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: 60px;
+}
+
+.page-title--small {
+  font-size: 42px;
+  margin: 20px 0 10px;
+  line-height: 1.4;
+}
+
+.page-subtitle {
+  font-size: 18px;
+}
+
+.main-page {
+  min-height: 77px;
+  background-color: #fff;
+  margin: 0 44px;
+  border-radius: 9px 9px 0 0;
+}
+
+.main-page__container {
+  padding: 55px 44px;
+}
+
+.page-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background-image: url(/img/page-bg.jpg);
+  background-position: center center;
+  background-size: cover;
+  height: 555px;
+}
+
+.page-bg--small {
+  height: 400px !important;
+}
+
+.list-table {
+  width: 100%;
+}
+
+.list-table th {
+  border-bottom-width: 1px;
+  padding: 12px 8px;
+  vertical-align: middle;
+  border-bottom: 2px solid #ddd;
+  line-height: 1.42857143;
+  font-size: 17px;
+  font-weight: 300;
+}
+
+.list-table td {
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 1.42857143;
+  vertical-align: top;
+  border-bottom: 1px solid #ddd;
+  padding: 12px 8px;
+}
+
+
+.list-table tr:last-child td {
+ 
+  border-bottom: 0;
+ }
+
+
+
+
+.list-table td a {
+  color: #0092af;
+  transition: .3s ease;
+  text-decoration: none;
+}
+
+.list-table td a:hover {
+  opacity: .75;
+}
+
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 36px;
+  }
+/*   
+  .page-title--small {
+    font-size: 42px;
+    margin: 20px 0 10px;
+    line-height: 1.4;
+  } */
+
+  .main-page {
+    margin: 0;
+
+    border-radius: 0;
+  }
+
+  .main-page__container {
+    margin-top: 55px;
+    padding: 33px 22px;
+  }
+  
+  
+}
