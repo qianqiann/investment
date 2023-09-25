@@ -1,13 +1,16 @@
 <template>
   <div class="main">
-
     <div class="main_fund">
-      <div v-for="(fund, fundIndex) in fundList" :key="fundIndex" class="details">
+      <div
+        v-for="(fund, fundIndex) in fundList"
+        :key="fundIndex"
+        class="details"
+      >
         <div class="fund_first">
           {{ fund.fundName }}
           <div class="fund_group">
             <div v-for="(category, index) in fund.investmentType" :key="index">
-              <div :style=getStyle(index) class="fund_category">
+              <div :style="getStyle(index)" class="fund_category">
                 {{ category }}
               </div>
             </div>
@@ -20,45 +23,69 @@
             <div class="wording_date">
               <div class="fund_title">{{ 'YTD RETURN' }}</div>
             </div>
-            <div class="fund_value">{{ fund.return ? fund.return + " %" : 'N/A' }}</div>
+            <div class="fund_value">
+              {{ fund.return ? fund.return + ' %' : 'N/A' }}
+            </div>
           </div>
           <div class="fund_right">
             <div class="wording_date">
               <div class="fund_title">{{ 'NAV Price' }}</div>
-              <div class="fund_value">{{ getPrice(fund.currency, fund.currentNetAsset) }}
+              <div class="fund_value">
+                {{ getPrice(fund.currency, fund.currentNetAsset) }}
               </div>
               <div class="fund_perf">
-                <img :src="fund.performance > 0 ? performanceIcon.increase : performanceIcon.decrease" />
-                <span>{{ fund.performance + "%" }}</span>
+                <img
+                  :src="
+                    fund.performance > 0
+                      ? performanceIcon.increase
+                      : performanceIcon.decrease
+                  "
+                />
+                <span>{{ fund.performance + '%' }}</span>
               </div>
             </div>
           </div>
         </div>
         <div class="fund_third">
-          <button type="button" @click="proceedAbout(fund.id)" class="fund_button btn btn-secondary">View
-            Information</button>
-          <button type="button" @click="showModal(fund)" class="fund_button btn btn-danger">Buy Fund</button>
+          <button
+            type="button"
+            @click="proceedAbout(fund.id)"
+            class="fund_button btn btn-secondary"
+          >
+            View Information
+          </button>
+          <button
+            type="button"
+            @click="showModal(fund)"
+            class="fund_button btn btn-danger"
+          >
+            Buy Fund
+          </button>
         </div>
       </div>
       <div class="view_more">
-        <button type="button" @click="getMore()" class="fund_button btn btn-outline-danger">View More Retail
-          Funds</button>
+        <button
+          type="button"
+          @click="getMore()"
+          class="fund_button btn btn-outline-danger"
+        >
+          View More Retail Funds
+        </button>
       </div>
     </div>
-
 
     <!-- <div class="view_more">
       <button type="button" @click="getMore()" class="fund_button btn btn-outline-danger">View More Retail Funds</button>
     </div> -->
-    <b-modal class="modal" v-model="buyModalDialog" :fundId="activeBuyModel" size="md">
-      <BuyModal />
+    <b-modal class="modal" v-model="buyModalDialog" size="md" ok-only>
+      <BuyModal :activeBuyModel="activeBuyModel" />
     </b-modal>
   </div>
 </template>
 
 <script>
-import { getList } from '../service/rest.js'
-import BuyModal from "../components/BuyModal.vue";
+import { getList } from '../service/rest.js';
+import BuyModal from '../components/BuyModal.vue';
 export default {
   components: { BuyModal },
   data: () => ({
@@ -71,30 +98,31 @@ export default {
       currency: 'SGD',
       currentNetAsset: '0.52',
       return: 4.9,
-      performance: 0.5
+      performance: 0.5,
     },
     mappingCategory: [
       {
         color: 'rgba(148, 108, 0, 1)',
-        background: 'rgba(255, 252, 212, 1)'
+        background: 'rgba(255, 252, 212, 1)',
       },
       {
         background: 'rgba(224, 255, 229, 1)',
-        color: 'rgba(14, 45, 19, 1)'
+        color: 'rgba(14, 45, 19, 1)',
       },
       {
         background: 'rgba(240, 239, 254, 1)',
-        color: 'rgba(79, 74, 167, 1)'
-      }
+        color: 'rgba(79, 74, 167, 1)',
+      },
     ],
     performanceIcon: {
-      increase: 'https://aham.com.my/clients/asset_C0C09289-21F6-4E4F-BA45-A8A98943FE33/contentms/img/new/icons/icon-increase.png',
-      decrease: 'https://aham.com.my/clients/asset_C0C09289-21F6-4E4F-BA45-A8A98943FE33/contentms/img/new/icons/icon-decrease.png'
+      increase:
+        'https://aham.com.my/clients/asset_C0C09289-21F6-4E4F-BA45-A8A98943FE33/contentms/img/new/icons/icon-increase.png',
+      decrease:
+        'https://aham.com.my/clients/asset_C0C09289-21F6-4E4F-BA45-A8A98943FE33/contentms/img/new/icons/icon-decrease.png',
     },
     buyModalDialog: false,
     currentPage: 1,
-    activeBuyModel: null
-
+    activeBuyModel: null,
   }),
   async mounted() {
     const resp = await getList(this.currentPage);
@@ -105,37 +133,43 @@ export default {
   },
   methods: {
     getStyle(index) {
-      let usedIndex = index < this.mappingCategory.length - 1 ? index : 0
+      let usedIndex = index < this.mappingCategory.length - 1 ? index : 0;
       var usedStyle = {
         backgroundColor: this.mappingCategory[usedIndex].background,
         color: this.mappingCategory[usedIndex].color,
       };
-      return usedStyle
+      return usedStyle;
     },
     getDate(current) {
       if (current == null) {
-        return 'N/A'
+        return 'N/A';
       }
-      let date = new Date(current * 1000)
-      return date.getUTCDate() + '-' + (date.getUTCMonth() + 1) + '-' + date.getUTCFullYear()
+      let date = new Date(current * 1000);
+      return (
+        date.getUTCDate() +
+        '-' +
+        (date.getUTCMonth() + 1) +
+        '-' +
+        date.getUTCFullYear()
+      );
     },
     getPrice(currency, value) {
       return `${currency} ${(Math.round(value * 100) / 100).toFixed(4)}`;
     },
     showModal(fund) {
       this.activeBuyModel = fund;
-      this.buyModalDialog = !this.buyModalDialog
+      this.buyModalDialog = !this.buyModalDialog;
     },
     proceedAbout(id) {
-      this.$router.push(`/about/${id}`)
+      this.$router.push(`/about/${id}`);
     },
     async getMore() {
       const resp = await getList(this.currentPage + 1);
       if (resp.code == 200) {
         this.currentPage = resp.data.currentPage;
-        resp.data.data.forEach(item => this.fundList.push(item))
+        resp.data.data.forEach((item) => this.fundList.push(item));
       }
-    }
+    },
   },
 };
 </script>
@@ -144,7 +178,6 @@ export default {
 .main {
   margin: 5px;
   padding: 10px;
-
 }
 
 .main_fund {
@@ -166,11 +199,10 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 5%;
-
 }
 
 .details {
-  border: 2px solid #D3D3D3;
+  border: 2px solid #d3d3d3;
   padding: 5px;
 }
 
@@ -183,7 +215,7 @@ export default {
 .fund_group {
   font-size: 15px;
   display: flex;
-  gap: 1%
+  gap: 1%;
 }
 
 .fund_category {
@@ -193,13 +225,13 @@ export default {
 
 .hr {
   margin-top: 10px;
-  border: 1px solid #D3D3D3;
+  border: 1px solid #d3d3d3;
 }
 
 .fund_right {
   padding: 5px;
   padding-left: 20px;
-  border-left: 2px solid #D3D3D3;
+  border-left: 2px solid #d3d3d3;
 }
 
 .fund_second {
@@ -254,7 +286,6 @@ export default {
   font-weight: 400;
   font-size: 18px;
 }
-
 
 .modal-dialog.modal-md {
   width: 70%;

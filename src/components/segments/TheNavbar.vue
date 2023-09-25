@@ -44,10 +44,7 @@
 <script>
 export default {
   data: () => ({
-    navItems: [
-      { name: "HOME", to: "/" },
-       { name: "Visualisation", to: "/" },
-    ],
+    navItems: [{ name: 'HOME', to: '/' }],
   }),
 };
 </script>
